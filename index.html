@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Table Example</title>
+    <!-- added boot strap link to use bootstrap-->
+    <link href="node_modules\bootstrap">
+</head>
+<body>
+    <div class="container mt-5">
+        <!--Table created-->
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>Name</th>
+                    <th>Email</th>
+                </tr>
+            </thead>
+            <tbody id="tableBody">
+                <!-- This is where the Table rows will be added  -->
+            </tbody>
+        </table>
+
+        <!-- Just a basic form -->
+        <form id="dataForm">
+            <div class="mb-3">
+                <label for="name" class="form-label">Name</label>
+                <input type="text" class="form-control" id="name" required>
+            </div>
+            <div class="mb-3">
+                <label for="email" class="form-label">Email</label>
+                <input type="email" class="form-control" id="email" required>
+            </div>
+            <button type="submit" class="btn btn-primary">Add Row</button>
+        </form>
+    </div>
+
+    <!-- Adding JS, JQ, BS scripts -->
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.min.js"></script>
+    
+    <!-- JS code for adding rows to the table -->
+    <script>
+        $(document).ready(function () {
+            // Counter to generate IDs for each row
+            let rowCounter = 1;
+
+            // Function to add a new row to the table
+            function addRow(name, email) {
+                const tableBody = document.getElementById("tableBody");
+
+                const newRow = document.createElement("tr");
+                newRow.innerHTML = `
+                    <td>${rowCounter}</td>
+                    <td>${name}</td>
+                    <td>${email}</td>
+                `;
+
+                tableBody.appendChild(newRow);
+
+                // starts the row counter for the next row
+                rowCounter++;
+            }
+
+            // js handling form data
+            $("#dataForm").submit(function (event) {
+                event.preventDefault();
+
+                const name = $("#name").val();
+                const email = $("#email").val();
+
+                // Calling the function to add a new row to the table
+                addRow(name, email);
+
+                // Clear the form inputs
+                $("#name").val("");
+                $("#email").val("");
+            });
+        });
+    </script>
+</body>
+</html>
